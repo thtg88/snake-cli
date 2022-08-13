@@ -116,8 +116,6 @@ final class Snake
             default => $top->y,
         };
 
-        // $this->blocks->push(new SnakeBlock($x, $y));
-        // $this->blocks->push(new SnakeBlock($x, $y));
         $this->blocks->push(new SnakeBlock($x, $y));
     }
 
