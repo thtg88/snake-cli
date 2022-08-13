@@ -30,4 +30,12 @@ From your terminal, execute:
 php src/index.php
 ```
 
-You can move the snake with `w` (up), `a` (left), `s` (down), `d` (right).
+### Commands
+
+- `w` move the snake up
+- `a` move the snake left
+- `s` move the snake down
+- `d` move the snake right
+- `p` pause the game
+- `r` resume the game
+- `q` quit the game
