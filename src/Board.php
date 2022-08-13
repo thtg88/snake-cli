@@ -18,6 +18,11 @@ final class Board
         $this->snake->continueMoving();
     }
 
+    public function foodToString(): string
+    {
+        return $this->food->toString();
+    }
+
     public function hasEaten(): bool
     {
         $snake_head = $this->snake->head();
@@ -76,6 +81,11 @@ final class Board
     public function snakeHead(): SnakeBlock
     {
         return $this->snake->head();
+    }
+
+    public function snakeToString(): string
+    {
+        return $this->snake->toString();
     }
 
     public function toArray(): array

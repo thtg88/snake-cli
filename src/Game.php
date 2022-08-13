@@ -21,8 +21,9 @@ final class Game
         echo $this->board->toString() . PHP_EOL;
 
         if ($this->debug) {
+            echo "FOOD: {$this->board->foodToString()}" . PHP_EOL;
             echo $this->board->snakeDirection()->name . PHP_EOL;
-            echo $this->board->snakeHead()->toString() . PHP_EOL;
+            echo $this->board->snakeToString() . PHP_EOL;
         }
     }
 

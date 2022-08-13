@@ -14,4 +14,9 @@ final class Food
     {
         return $this->x === $x && $this->y === $y;
     }
+
+    public function toString(): string
+    {
+        return "[x={$this->x}, y={$this->y}]";
+    }
 }

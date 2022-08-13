@@ -88,6 +88,26 @@ final class Snake
         $this->move();
     }
 
+    public function toString(): string
+    {
+        $snake = [];
+
+        $this->blocks->rewind();
+
+        while ($this->blocks->valid()) {
+            /** @var SnakeBlock */
+            $block = $this->blocks->current();
+
+            $snake[] = $block->toString();
+
+            $this->blocks->next();
+        }
+
+        $this->blocks->rewind();
+
+        return implode(PHP_EOL, $snake);
+    }
+
     /**
      * Moves the snake in the current direction.
      */
