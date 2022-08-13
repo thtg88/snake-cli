@@ -1,3 +1,5 @@
+![Play Snake in your terminal!](header.png)
+
 # Snake CLI
 
 Play Snake in your terminal!
