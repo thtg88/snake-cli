@@ -8,6 +8,7 @@ use Thtg88\SnakeCli\Exceptions\GameQuit;
 final class Game
 {
     private bool $paused = false;
+    private bool $just_moved_direction = false;
     private bool $quitting = false;
     private Board $board;
     private const WIDTH = 40;
@@ -47,6 +48,8 @@ final class Game
             'r' => $this->resume(),
             default => $this->board->continueMovingSnake(),
         };
+
+        $this->just_moved_direction = true;
     }
 
     public function pause(): void
@@ -74,7 +77,9 @@ final class Game
             return;
         }
 
-        $this->board->continueMovingSnake();
+        if (!$this->just_moved_direction) {
+            $this->board->continueMovingSnake();
+        }
 
         if ($this->board->hasEaten()) {
             $this->board->placeFood();
@@ -84,6 +89,9 @@ final class Game
         if ($this->board->snakeCrashed()) {
             throw new GameOver();
         }
+
+        // Reset at the end of the round
+        $this->just_moved_direction = false;
     }
 
     public function start(): void
