@@ -2,13 +2,11 @@
 
 namespace Thtg88\SnakeCli;
 
-use Thtg88\SnakeCli\Exceptions\GameAlreadyStarted;
 use Thtg88\SnakeCli\Exceptions\GameOver;
 
 final class Game
 {
     private bool $paused = false;
-    private bool $started = false;
     private Board $board;
     private const WIDTH = 40;
     private const HEIGHT = 20;
@@ -84,10 +82,6 @@ final class Game
 
     public function start(): void
     {
-        if ($this->started) {
-            throw new GameAlreadyStarted();
-        }
-
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
         $this->board->placeFood();
     }
