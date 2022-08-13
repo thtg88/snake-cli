@@ -8,6 +8,7 @@ use Thtg88\SnakeCli\Exceptions\GameQuit;
 final class Game
 {
     private bool $paused = false;
+    private bool $quitting = false;
     private Board $board;
     private const WIDTH = 40;
     private const HEIGHT = 20;
@@ -60,11 +61,15 @@ final class Game
 
     public function stop(): void
     {
-        throw new GameQuit();
+        $this->quitting = true;
     }
 
     public function round(): void
     {
+        if ($this->quitting) {
+            throw new GameQuit();
+        }
+
         if ($this->paused) {
             return;
         }
