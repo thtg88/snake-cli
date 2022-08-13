@@ -6,6 +6,7 @@ use React\EventLoop\Loop;
 use React\EventLoop\TimerInterface;
 use React\Stream\ReadableResourceStream;
 use Thtg88\SnakeCli\Exceptions\GameOver;
+use Thtg88\SnakeCli\Exceptions\GameQuit;
 use Thtg88\SnakeCli\Game;
 
 $game = new Game(true);
@@ -25,7 +26,7 @@ Loop::addPeriodicTimer(1, static function (TimerInterface $timer) use ($game, $s
         $game->round();
 
         $game->draw();
-    } catch (GameOver $e) {
+    } catch (GameOver|GameQuit $e) {
         echo $e->getMessage() . PHP_EOL;
 
         Loop::cancelTimer($timer);

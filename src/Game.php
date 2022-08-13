@@ -3,6 +3,7 @@
 namespace Thtg88\SnakeCli;
 
 use Thtg88\SnakeCli\Exceptions\GameOver;
+use Thtg88\SnakeCli\Exceptions\GameQuit;
 
 final class Game
 {
@@ -40,6 +41,7 @@ final class Game
             's' => $this->board->moveSnakeDown(),
             'd' => $this->board->moveSnakeRight(),
             'p' => $this->pause(),
+            'q' => $this->stop(),
             'r' => $this->resume(),
             default => $this->board->continueMovingSnake(),
         };
@@ -53,6 +55,11 @@ final class Game
     public function resume(): void
     {
         $this->paused = false;
+    }
+
+    public function stop(): void
+    {
+        throw new GameQuit();
     }
 
     public function round(): void
