@@ -15,20 +15,13 @@ final class Game
     {
     }
 
-    public function clearScreen(): void
-    {
-        if ($this->debug) {
-            return;
-        }
-
-        echo "\e[H\e[J";
-    }
-
     public function draw(): void
     {
         if ($this->paused) {
             return;
         }
+
+        $this->clearScreen();
 
         echo $this->board->toString() . PHP_EOL;
 
@@ -84,6 +77,15 @@ final class Game
     {
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
         $this->board->placeFood();
+    }
+
+    private function clearScreen(): void
+    {
+        if ($this->debug) {
+            return;
+        }
+
+        echo "\e[H\e[J";
     }
 
     private function newSnake(): Snake

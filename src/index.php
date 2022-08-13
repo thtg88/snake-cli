@@ -10,8 +10,6 @@ use Thtg88\SnakeCli\Game;
 
 $game = new Game(true);
 
-$game->clearScreen();
-
 $game->start();
 
 $game->draw();
@@ -23,8 +21,6 @@ $stream->on('data', function ($chunk) use ($game) {
 });
 
 Loop::addPeriodicTimer(1, static function (TimerInterface $timer) use ($game, $stream) {
-    $game->clearScreen();
-
     try {
         $game->round();
 
