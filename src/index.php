@@ -9,7 +9,7 @@ use Thtg88\SnakeCli\Exceptions\GameOver;
 use Thtg88\SnakeCli\Exceptions\GameQuit;
 use Thtg88\SnakeCli\Game;
 
-$game = new Game(true);
+$game = new Game();
 
 $game->start();
 
@@ -36,4 +36,3 @@ Loop::addPeriodicTimer(Game::WAIT, static function (TimerInterface $timer) use (
         Loop::stop();
     }
 });
-
