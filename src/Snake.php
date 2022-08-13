@@ -98,7 +98,7 @@ final class Snake
             /** @var SnakeBlock */
             $block = $this->blocks->current();
 
-            $snake[] = $block->toString();
+            $snake[] = "{$this->blocks->key()}: {$block->toString()}";
 
             $this->blocks->next();
         }
