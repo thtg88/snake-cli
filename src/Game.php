@@ -7,6 +7,7 @@ use Thtg88\SnakeCli\Exceptions\GameOver;
 
 final class Game
 {
+    private bool $paused = false;
     private bool $started = false;
     private Board $board;
     private const WIDTH = 40;
@@ -27,6 +28,10 @@ final class Game
 
     public function draw(): void
     {
+        if ($this->paused) {
+            return;
+        }
+
         echo $this->board->toString() . PHP_EOL;
 
         if ($this->debug) {
@@ -43,12 +48,28 @@ final class Game
             'a' => $this->board->moveSnakeLeft(),
             's' => $this->board->moveSnakeDown(),
             'd' => $this->board->moveSnakeRight(),
+            'p' => $this->pause(),
+            'r' => $this->resume(),
             default => $this->board->continueMovingSnake(),
         };
     }
 
+    public function pause(): void
+    {
+        $this->paused = true;
+    }
+
+    public function resume(): void
+    {
+        $this->paused = false;
+    }
+
     public function round(): void
     {
+        if ($this->paused) {
+            return;
+        }
+
         $this->board->continueMovingSnake();
 
         if ($this->board->hasEaten()) {
