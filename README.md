@@ -1,8 +1,8 @@
-## Snake CLI
+# Snake CLI
 
 Play Snake in your terminal!
 
-### Requirements
+## Requirements
 
 PHP 8.1 - you can install it on macOS via Homebrew with:
 
@@ -12,7 +12,7 @@ brew install php@8.1
 
 Composer: you can find instructions on how to install it at https://getcomposer.org
 
-### Install
+## Install
 
 Clone the repo and install the dependencies
 
@@ -20,7 +20,7 @@ Clone the repo and install the dependencies
 composer install
 ```
 
-### Play
+## Play
 
 From your terminal, execute:
 
