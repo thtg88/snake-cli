@@ -18,6 +18,10 @@ final class Game
 
     public function clearScreen(): void
     {
+        if ($this->debug) {
+            return;
+        }
+
         echo "\e[H\e[J";
     }
 
