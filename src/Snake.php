@@ -1,0 +1,130 @@
+<?php
+
+namespace Thtg88\SnakeCli;
+
+use SplDoublyLinkedList;
+
+final class Snake
+{
+    private SplDoublyLinkedList $blocks;
+
+    public function __construct(
+        private SnakeBlock $starting_block,
+        private SnakeDirection $direction,
+    ) {
+        $this->blocks = new SplDoublyLinkedList();
+        $this->blocks->setIteratorMode(SplDoublyLinkedList::IT_MODE_FIFO);
+        $this->blocks->push($starting_block);
+    }
+
+    public function continueMoving(): void
+    {
+        match ($this->direction) {
+            SnakeDirection::UP => $this->moveUp(),
+            SnakeDirection::RIGHT => $this->moveRight(),
+            SnakeDirection::DOWN => $this->moveDown(),
+            SnakeDirection::LEFT => $this->moveLeft(),
+            default => new WrongDirection(),
+        };
+    }
+
+    public function direction(): SnakeDirection
+    {
+        return $this->direction;
+    }
+
+    public function eat(): void
+    {
+        $this->pushBlock();
+    }
+
+    public function head(): SnakeBlock
+    {
+        return $this->blocks->top();
+    }
+
+    public function isAt(int $x, int $y): bool
+    {
+        $this->blocks->rewind();
+
+        while ($this->blocks->valid()) {
+            /** @var SnakeBlock */
+            $block = $this->blocks->current();
+
+            if ($block->x === $x && $block->y === $y) {
+                return true;
+            }
+
+            $this->blocks->next();
+        }
+
+        $this->blocks->rewind();
+
+        return false;
+    }
+
+    public function moveUp(): void
+    {
+        $this->direction = SnakeDirection::UP;
+        $this->move();
+    }
+
+    public function moveRight(): void
+    {
+        $this->direction = SnakeDirection::RIGHT;
+        $this->move();
+    }
+
+    public function moveDown(): void
+    {
+        $this->direction = SnakeDirection::DOWN;
+        $this->move();
+    }
+
+    public function moveLeft(): void
+    {
+        $this->direction = SnakeDirection::LEFT;
+        $this->move();
+    }
+
+    /**
+     * Moves the snake in the current direction.
+     */
+    private function move(): void
+    {
+        $this->pushBlock();
+        $this->shiftBlock();
+    }
+
+    /**
+     * Adds a block on top of the queue in the current direction.
+     */
+    private function pushBlock(): void
+    {
+        $top = $this->head();
+
+        $x = match ($this->direction) {
+            SnakeDirection::RIGHT => $top->x + 1,
+            SnakeDirection::LEFT => $top->x - 1,
+            default => $top->x,
+        };
+
+        $y = match ($this->direction) {
+            SnakeDirection::UP => $top->y - 1,
+            SnakeDirection::DOWN => $top->y + 1,
+            default => $top->y,
+        };
+
+        // $this->blocks->push(new SnakeBlock($x, $y));
+        // $this->blocks->push(new SnakeBlock($x, $y));
+        $this->blocks->push(new SnakeBlock($x, $y));
+    }
+
+    /**
+     * Removes the last block of the queue.
+     */
+    private function shiftBlock(): void
+    {
+        $this->blocks->shift();
+    }
+}
