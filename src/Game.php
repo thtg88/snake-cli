@@ -16,6 +16,11 @@ final class Game
     {
     }
 
+    public function clearScreen(): void
+    {
+        echo "\e[H\e[J";
+    }
+
     public function draw(): void
     {
         echo $this->board->toString() . PHP_EOL;
