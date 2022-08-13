@@ -21,7 +21,7 @@ $stream->on('data', function ($chunk) use ($game) {
     $game->handleInput($chunk);
 });
 
-Loop::addPeriodicTimer(1, static function (TimerInterface $timer) use ($game, $stream) {
+Loop::addPeriodicTimer(Game::WAIT, static function (TimerInterface $timer) use ($game, $stream) {
     try {
         $game->round();
 

@@ -11,6 +11,7 @@ final class Game
     private Board $board;
     private const WIDTH = 40;
     private const HEIGHT = 20;
+    public const WAIT = 0.75;
 
     public function __construct(private readonly bool $debug = false)
     {
