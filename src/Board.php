@@ -4,6 +4,9 @@ namespace Thtg88\SnakeCli;
 
 final class Board
 {
+    private const BRICK_BLOCK = '🟧';
+    private const EMPTY_BLOCK = '⬛️';
+
     private Food $food;
 
     public function __construct(
@@ -91,10 +94,10 @@ final class Board
     public function toArray(): array
     {
         // Width + 2 to fill the borders on the sides
-        $tiles = [array_fill(0, $this->width + 2, '-')];
+        $tiles = [array_fill(0, $this->width + 2, self::BRICK_BLOCK)];
 
         for ($y = 0; $y < $this->height; $y++) {
-            $tiles[$y + 1][0] = '|';
+            $tiles[$y + 1][0] = self::BRICK_BLOCK;
 
             for ($x = 0; $x < $this->width; $x++) {
                 if ($this->snake->isAt($x, $y)) {
@@ -102,14 +105,14 @@ final class Board
                 } else if ($this->food->isAt($x, $y)) {
                     $tiles[$y + 1][$x + 1] = Food::BLOCK;
                 } else {
-                    $tiles[$y + 1][$x + 1] = ' ';
+                    $tiles[$y + 1][$x + 1] = self::EMPTY_BLOCK;
                 }
             }
 
-            $tiles[$y + 1][$x + 1] = '|';
+            $tiles[$y + 1][$x + 1] = self::BRICK_BLOCK;
         }
 
-        $tiles[] = array_fill(0, $this->width + 2, '-');
+        $tiles[] = array_fill(0, $this->width + 2, self::BRICK_BLOCK);
 
         return $tiles;
     }

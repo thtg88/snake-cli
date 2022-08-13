@@ -10,7 +10,7 @@ final class Game
     private bool $started = false;
     private Board $board;
     private const WIDTH = 40;
-    private const HEIGHT = 10;
+    private const HEIGHT = 20;
 
     public function __construct(private readonly bool $debug = false)
     {
