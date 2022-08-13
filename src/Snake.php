@@ -3,6 +3,7 @@
 namespace Thtg88\SnakeCli;
 
 use SplDoublyLinkedList;
+use Thtg88\SnakeCli\Exceptions\WrongDirection;
 
 final class Snake
 {
