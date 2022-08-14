@@ -14,10 +14,12 @@ final class Game
     private const WIDTH = 40;
     private const HEIGHT = 20;
     public const WAIT = 0.75;
+    private CliOutput $output;
 
     public function __construct(private readonly bool $debug = false)
     {
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
+        $this->output = new CliOutput($debug);
     }
 
     public function draw(): void
@@ -26,15 +28,7 @@ final class Game
             return;
         }
 
-        $this->clearScreen();
-
-        echo $this->board->toString() . PHP_EOL;
-
-        if ($this->debug) {
-            echo "FOOD: {$this->board->foodToString()}" . PHP_EOL;
-            echo $this->board->snakeDirection()->name . PHP_EOL;
-            echo $this->board->snakeToString() . PHP_EOL;
-        }
+        $this->output->write($this->board, $this->score);
     }
 
     public function handleInput(string $input): void
@@ -98,15 +92,6 @@ final class Game
     public function start(): void
     {
         $this->board->placeFood();
-    }
-
-    private function clearScreen(): void
-    {
-        if ($this->debug) {
-            return;
-        }
-
-        echo "\e[H\e[J";
     }
 
     private function newSnake(): Snake
