@@ -23,7 +23,7 @@ final class CliInput
         $this->stream->close();
     }
 
-    public function handleInput(string $input): void
+    private function handleInput(string $input): void
     {
         match (trim(strtolower($input))) {
             'w' => $this->game_controls->moveSnakeUp(),
