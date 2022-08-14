@@ -69,6 +69,8 @@ final class Game
 
     public function start(): void
     {
+        $this->input->starting();
+
         $this->board->placeFood();
 
         $this->draw();
@@ -80,7 +82,7 @@ final class Game
                 $this->draw();
             } catch (GameOver|GameQuit $e) {
                 $this->output->writeError($e->getMessage());
-                $this->input->closeStream();
+                $this->input->quitting();
 
                 Loop::cancelTimer($timer);
                 Loop::stop();

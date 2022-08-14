@@ -12,13 +12,16 @@ final class CliInput
     public function __construct(private readonly GameControls $game_controls)
     {
         $this->stream = new ReadableResourceStream(STDIN);
+    }
 
+    public function starting(): void
+    {
         $this->stream->on('data', function ($chunk) {
             $this->handleInput($chunk);
         });
     }
 
-    public function closeStream(): void
+    public function quitting(): void
     {
         $this->stream->close();
     }
