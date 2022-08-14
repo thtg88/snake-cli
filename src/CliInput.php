@@ -35,6 +35,6 @@ final class CliInput
             default => $this->game_controls->noOp(),
         };
 
-        $this->just_moved_direction = true;
+        $this->game_controls->performAction();
     }
 }
