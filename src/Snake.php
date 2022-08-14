@@ -111,7 +111,8 @@ final class Snake
     {
         $this->direction = $direction;
         $this->pushBlock();
-        $this->shiftBlock();
+        // Remove last block of the queue
+        $this->blocks->shift();
     }
 
     /**
@@ -134,13 +135,5 @@ final class Snake
         };
 
         $this->blocks->push(new SnakeBlock($x, $y));
-    }
-
-    /**
-     * Removes the last block of the queue.
-     */
-    private function shiftBlock(): void
-    {
-        $this->blocks->shift();
     }
 }
