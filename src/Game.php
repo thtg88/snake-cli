@@ -13,7 +13,7 @@ final class Game
 {
     private const WIDTH = 40;
     private const HEIGHT = 20;
-    public const WAIT = 0.75;
+    public const WAIT = 0.2;
 
     private Board $board;
     private CliOutput $output;

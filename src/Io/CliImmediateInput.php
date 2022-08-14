@@ -4,7 +4,6 @@ namespace Thtg88\SnakeCli\Io;
 
 use React\EventLoop\Loop;
 use React\EventLoop\TimerInterface;
-use React\Stream\ReadableResourceStream;
 use Thtg88\SnakeCli\GameControls;
 use Thtg88\SnakeCli\SnakeDirection;
 
@@ -24,7 +23,7 @@ final class CliImmediateInput implements InputInterface
             $read_streams = [STDIN];
             $write_streams = null;
             $except_streams = null;
-            $number_of_characters = stream_select($read_streams, $write_streams, $except_streams, 0, 200_000);
+            $number_of_characters = stream_select($read_streams, $write_streams, $except_streams, 0, 20_000);
             if ($number_of_characters && in_array(STDIN, $read_streams)) {
                 $character = stream_get_contents(STDIN, 1);
                 $this->handleInput($character);
