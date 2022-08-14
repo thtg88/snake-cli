@@ -17,6 +17,7 @@ final class Game
 
     public function __construct(private readonly bool $debug = false)
     {
+        $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
     }
 
     public function draw(): void
@@ -96,7 +97,6 @@ final class Game
 
     public function start(): void
     {
-        $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
         $this->board->placeFood();
     }
 
@@ -113,7 +113,7 @@ final class Game
     {
         return new Snake(
             $this->randomSnakeBlock(),
-            SnakeDirection::random()
+            SnakeDirection::random(),
         );
     }
 
