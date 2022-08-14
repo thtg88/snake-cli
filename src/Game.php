@@ -2,6 +2,8 @@
 
 namespace Thtg88\SnakeCli;
 
+use React\EventLoop\Loop;
+use React\EventLoop\TimerInterface;
 use Thtg88\SnakeCli\Exceptions\GameOver;
 use Thtg88\SnakeCli\Exceptions\GameQuit;
 
@@ -67,6 +69,22 @@ final class Game
     public function start(): void
     {
         $this->board->placeFood();
+
+        $this->draw();
+
+        Loop::addPeriodicTimer(self::WAIT, function (TimerInterface $timer) {
+            try {
+                $this->round();
+
+                $this->draw();
+            } catch (GameOver|GameQuit $e) {
+                $this->output->writeError($e->getMessage());
+                $this->input->closeStream();
+
+                Loop::cancelTimer($timer);
+                Loop::stop();
+            }
+        });
     }
 
     private function newSnake(): Snake
