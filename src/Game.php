@@ -80,8 +80,9 @@ final class Game
     private function randomSnakeBlock(): SnakeBlock
     {
         return new SnakeBlock(
-            rand(0, self::WIDTH - 1),
-            rand(0, self::HEIGHT - 1),
+            // Don't put the snake right at the edge of the board
+            rand(1, self::WIDTH - 2),
+            rand(1, self::HEIGHT - 2),
         );
     }
 }
