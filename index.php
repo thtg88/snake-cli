@@ -1,8 +1,8 @@
 <?php
 
 use Thtg88\SnakeCli\Game;
-use Thtg88\SnakeCli\Io\DumbAutoInput;
+use Thtg88\SnakeCli\Io\CliInput;
 
 require __DIR__.'/vendor/autoload.php';
 
-(new Game(new DumbAutoInput()))->start();
+(new Game(new CliInput()))->start();
