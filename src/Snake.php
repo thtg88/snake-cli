@@ -61,7 +61,7 @@ final class Snake
         return false;
     }
 
-    private function move(SnakeDirection $direction): void
+    public function move(SnakeDirection $direction): void
     {
         $this->direction = $direction;
         $this->pushBlock();
