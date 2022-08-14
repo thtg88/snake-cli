@@ -6,8 +6,8 @@ use React\EventLoop\Loop;
 use React\EventLoop\TimerInterface;
 use Thtg88\SnakeCli\Exceptions\GameOver;
 use Thtg88\SnakeCli\Exceptions\GameQuit;
-use Thtg88\SnakeCli\Io\CliInput;
 use Thtg88\SnakeCli\Io\CliOutput;
+use Thtg88\SnakeCli\Io\InputInterface;
 
 final class Game
 {
@@ -16,17 +16,17 @@ final class Game
     public const WAIT = 0.75;
 
     private Board $board;
-    private CliInput $input;
     private CliOutput $output;
     private GameControls $game_controls;
     private Score $score;
 
-    public function __construct(private readonly bool $debug = false)
-    {
+    public function __construct(
+        private readonly InputInterface $input,
+        private readonly bool $debug = false,
+    ) {
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
         $this->game_controls = new GameControls($this->board);
         $this->output = new CliOutput($debug);
-        $this->input = new CliInput($this->game_controls);
         $this->score = new Score();
     }
 
@@ -69,6 +69,7 @@ final class Game
 
     public function start(): void
     {
+        $this->input->setGameControls($this->game_controls);
         $this->input->starting();
 
         $this->board->placeFood();

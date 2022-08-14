@@ -6,11 +6,12 @@ use React\Stream\ReadableResourceStream;
 use Thtg88\SnakeCli\GameControls;
 use Thtg88\SnakeCli\SnakeDirection;
 
-final class CliInput
+final class CliInput implements InputInterface
 {
+    private GameControls $game_controls;
     private ReadableResourceStream $stream;
 
-    public function __construct(private readonly GameControls $game_controls)
+    public function __construct()
     {
         $this->stream = new ReadableResourceStream(STDIN);
     }
@@ -25,6 +26,11 @@ final class CliInput
     public function quitting(): void
     {
         $this->stream->close();
+    }
+
+    public function setGameControls(GameControls $game_controls): void
+    {
+        $this->game_controls = $game_controls;
     }
 
     private function handleInput(string $input): void
