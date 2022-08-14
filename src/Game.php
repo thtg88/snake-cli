@@ -11,12 +11,11 @@ use Thtg88\SnakeCli\Io\CliOutput;
 
 final class Game
 {
-    private Board $board;
-
     private const WIDTH = 40;
     private const HEIGHT = 20;
     public const WAIT = 0.75;
 
+    private Board $board;
     private CliInput $input;
     private CliOutput $output;
     private GameControls $game_controls;
