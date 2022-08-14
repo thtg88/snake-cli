@@ -26,7 +26,7 @@ final class Board
         return $this->food->toString();
     }
 
-    public function hasEaten(): bool
+    public function hasSnakeEaten(): bool
     {
         $snake_head = $this->snake->head();
 

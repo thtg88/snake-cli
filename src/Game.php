@@ -78,7 +78,7 @@ final class Game
             $this->board->continueMovingSnake();
         }
 
-        if ($this->board->hasEaten()) {
+        if ($this->board->hasSnakeEaten()) {
             $this->board->placeFood();
             $this->board->snakeEatsFood();
             $this->score->increment();
