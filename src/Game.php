@@ -15,11 +15,13 @@ final class Game
     private const HEIGHT = 20;
     public const WAIT = 0.75;
     private CliOutput $output;
+    private Score $score;
 
     public function __construct(private readonly bool $debug = false)
     {
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
         $this->output = new CliOutput($debug);
+        $this->score = new Score();
     }
 
     public function draw(): void
@@ -79,6 +81,7 @@ final class Game
         if ($this->board->hasEaten()) {
             $this->board->placeFood();
             $this->board->snakeEatsFood();
+            $this->score->increment();
         }
 
         if ($this->board->snakeCrashed()) {
