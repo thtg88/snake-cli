@@ -12,6 +12,9 @@ final class CliImmediateInput implements InputInterface
     private GameControls $game_controls;
     private TimerInterface $timer;
 
+    private const INPUT_WAIT_MICRO_SECONDS = 20_000;
+    private const INPUT_TIMER = 0.1;
+
     public function __construct()
     {
         readline_callback_handler_install('', function () { });
@@ -19,15 +22,27 @@ final class CliImmediateInput implements InputInterface
 
     public function starting(): void
     {
-        $this->timer = Loop::addPeriodicTimer(0.1, function () {
+        $this->timer = Loop::addPeriodicTimer(self::INPUT_TIMER, function () {
             $read_streams = [STDIN];
             $write_streams = null;
             $except_streams = null;
-            $number_of_characters = stream_select($read_streams, $write_streams, $except_streams, 0, 20_000);
-            if ($number_of_characters && in_array(STDIN, $read_streams)) {
-                $character = stream_get_contents(STDIN, 1);
-                $this->handleInput($character);
+            $number_of_characters = stream_select(
+                $read_streams,
+                $write_streams,
+                $except_streams,
+                0,
+                self::INPUT_WAIT_MICRO_SECONDS,
+            );
+            if (!$number_of_characters || !in_array(STDIN, $read_streams)) {
+                return;
             }
+
+            $character = stream_get_contents(STDIN, 1);
+            if (!$character) {
+                return;
+            }
+
+            $this->handleInput($character);
         });
     }
 
