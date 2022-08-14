@@ -7,74 +7,43 @@ use Thtg88\SnakeCli\Exceptions\GameQuit;
 
 final class Game
 {
-    private bool $paused = false;
-    private bool $just_moved_direction = false;
-    private bool $quitting = false;
     private Board $board;
+
     private const WIDTH = 40;
     private const HEIGHT = 20;
     public const WAIT = 0.75;
     private CliOutput $output;
+    private GameControls $game_controls;
     private Score $score;
 
     public function __construct(private readonly bool $debug = false)
     {
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
+        $this->game_controls = new GameControls($this->board);
         $this->output = new CliOutput($debug);
         $this->score = new Score();
     }
 
     public function draw(): void
     {
-        if ($this->paused) {
+        if ($this->game_controls->paused()) {
             return;
         }
 
         $this->output->write($this->board, $this->score);
     }
 
-    public function handleInput(string $input): void
-    {
-        match (trim($input)) {
-            'w' => $this->board->moveSnakeUp(),
-            'a' => $this->board->moveSnakeLeft(),
-            's' => $this->board->moveSnakeDown(),
-            'd' => $this->board->moveSnakeRight(),
-            'p' => $this->pause(),
-            'q' => $this->stop(),
-            'r' => $this->resume(),
-            default => $this->board->continueMovingSnake(),
-        };
-
-        $this->just_moved_direction = true;
-    }
-
-    public function pause(): void
-    {
-        $this->paused = true;
-    }
-
-    public function resume(): void
-    {
-        $this->paused = false;
-    }
-
-    public function stop(): void
-    {
-        $this->quitting = true;
-    }
-
     public function round(): void
     {
-        if ($this->quitting) {
+        if ($this->game_controls->quitting()) {
             throw new GameQuit();
         }
 
-        if ($this->paused) {
+        if ($this->game_controls->paused()) {
             return;
         }
 
-        if (!$this->just_moved_direction) {
+        if (!$this->game_controls->actionPerformed()) {
             $this->board->continueMovingSnake();
         }
 
@@ -89,7 +58,7 @@ final class Game
         }
 
         // Reset at the end of the round
-        $this->just_moved_direction = false;
+        $this->game_controls->resetActionPerformed();
     }
 
     public function start(): void
