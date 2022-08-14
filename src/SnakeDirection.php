@@ -11,7 +11,7 @@ enum SnakeDirection
     case DOWN;
     case LEFT;
 
-    public function opposite(SnakeDirection $direction): self
+    public static function opposite(SnakeDirection $direction): self
     {
         return match ($direction) {
             self::UP => self::DOWN,
