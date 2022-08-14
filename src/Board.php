@@ -34,7 +34,7 @@ final class Board
     public function moveSnake(SnakeDirection $direction): void
     {
         // Can't move back onto yourself
-        if ($this->snakeDirection() === SnakeDirection::DOWN) {
+        if ($this->snakeDirection() === SnakeDirection::opposite($direction)) {
             return;
         }
 
