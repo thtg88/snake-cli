@@ -27,24 +27,9 @@ final class GameControls
         $this->just_performed_action = false;
     }
 
-    public function moveSnakeUp(): void
+    public function moveSnake(SnakeDirection $direction): void
     {
-        $this->board->moveSnakeUp();
-    }
-
-    public function moveSnakeRight(): void
-    {
-        $this->board->moveSnakeRight();
-    }
-
-    public function moveSnakeDown(): void
-    {
-        $this->board->moveSnakeDown();
-    }
-
-    public function moveSnakeLeft(): void
-    {
-        $this->board->moveSnakeLeft();
+        $this->board->moveSnake($direction);
     }
 
     public function noOp(): void

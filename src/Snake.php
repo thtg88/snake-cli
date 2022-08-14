@@ -21,10 +21,7 @@ final class Snake
     public function continueMoving(): void
     {
         match ($this->direction) {
-            SnakeDirection::UP => $this->moveUp(),
-            SnakeDirection::RIGHT => $this->moveRight(),
-            SnakeDirection::DOWN => $this->moveDown(),
-            SnakeDirection::LEFT => $this->moveLeft(),
+            SnakeDirection::UP, SnakeDirection::RIGHT, SnakeDirection::DOWN, SnakeDirection::LEFT => $this->move($this->direction),
             default => throw new WrongDirection(),
         };
     }
@@ -64,24 +61,12 @@ final class Snake
         return false;
     }
 
-    public function moveUp(): void
+    private function move(SnakeDirection $direction): void
     {
-        $this->move(SnakeDirection::UP);
-    }
-
-    public function moveRight(): void
-    {
-        $this->move(SnakeDirection::RIGHT);
-    }
-
-    public function moveDown(): void
-    {
-        $this->move(SnakeDirection::DOWN);
-    }
-
-    public function moveLeft(): void
-    {
-        $this->move(SnakeDirection::LEFT);
+        $this->direction = $direction;
+        $this->pushBlock();
+        // Remove last block of the queue
+        $this->blocks->shift();
     }
 
     public function toString(): string
@@ -102,17 +87,6 @@ final class Snake
         $this->blocks->rewind();
 
         return implode(PHP_EOL, $snake);
-    }
-
-    /**
-     * Moves the snake in the current direction.
-     */
-    private function move(SnakeDirection $direction): void
-    {
-        $this->direction = $direction;
-        $this->pushBlock();
-        // Remove last block of the queue
-        $this->blocks->shift();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Thtg88\SnakeCli\Io;
 
 use React\Stream\ReadableResourceStream;
 use Thtg88\SnakeCli\GameControls;
+use Thtg88\SnakeCli\SnakeDirection;
 
 final class CliInput
 {
@@ -29,10 +30,10 @@ final class CliInput
     private function handleInput(string $input): void
     {
         match (trim(strtolower($input))) {
-            'w' => $this->game_controls->moveSnakeUp(),
-            'a' => $this->game_controls->moveSnakeLeft(),
-            's' => $this->game_controls->moveSnakeDown(),
-            'd' => $this->game_controls->moveSnakeRight(),
+            'w' => $this->game_controls->moveSnake(SnakeDirection::UP),
+            'a' => $this->game_controls->moveSnake(SnakeDirection::LEFT),
+            's' => $this->game_controls->moveSnake(SnakeDirection::DOWN),
+            'd' => $this->game_controls->moveSnake(SnakeDirection::RIGHT),
             'p' => $this->game_controls->pause(),
             'q' => $this->game_controls->quit(),
             'r' => $this->game_controls->resume(),

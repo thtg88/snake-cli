@@ -31,44 +31,14 @@ final class Board
             $snake_head->y === $this->food->y;
     }
 
-    public function moveSnakeUp(): void
+    public function moveSnake(SnakeDirection $direction): void
     {
         // Can't move back onto yourself
         if ($this->snakeDirection() === SnakeDirection::DOWN) {
             return;
         }
 
-        $this->snake->moveUp();
-    }
-
-    public function moveSnakeRight(): void
-    {
-        // Can't move back onto yourself
-        if ($this->snakeDirection() === SnakeDirection::LEFT) {
-            return;
-        }
-
-        $this->snake->moveRight();
-    }
-
-    public function moveSnakeDown(): void
-    {
-        // Can't move back onto yourself
-        if ($this->snakeDirection() === SnakeDirection::UP) {
-            return;
-        }
-
-        $this->snake->moveDown();
-    }
-
-    public function moveSnakeLeft(): void
-    {
-        // Can't move back onto yourself
-        if ($this->snakeDirection() === SnakeDirection::RIGHT) {
-            return;
-        }
-
-        $this->snake->moveLeft();
+        $this->snake->move($direction);
     }
 
     public function placeFood(): void
