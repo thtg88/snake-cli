@@ -12,6 +12,8 @@ final class Game
     private const WIDTH = 40;
     private const HEIGHT = 20;
     public const WAIT = 0.75;
+
+    private CliInput $input;
     private CliOutput $output;
     private GameControls $game_controls;
     private Score $score;
@@ -21,6 +23,7 @@ final class Game
         $this->board = new Board(self::WIDTH, self::HEIGHT, $this->newSnake());
         $this->game_controls = new GameControls($this->board);
         $this->output = new CliOutput($debug);
+        $this->input = new CliInput($this->game_controls);
         $this->score = new Score();
     }
 
