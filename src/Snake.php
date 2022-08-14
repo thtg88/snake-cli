@@ -25,7 +25,7 @@ final class Snake
             SnakeDirection::RIGHT => $this->moveRight(),
             SnakeDirection::DOWN => $this->moveDown(),
             SnakeDirection::LEFT => $this->moveLeft(),
-            default => new WrongDirection(),
+            default => throw new WrongDirection(),
         };
     }
 
