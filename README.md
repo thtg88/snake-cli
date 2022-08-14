@@ -39,3 +39,5 @@ php index.php
 - `p` pause the game
 - `r` resume the game
 - `q` quit the game
+
+You must press `ENTER` after every command
