@@ -4,8 +4,6 @@ namespace Thtg88\SnakeCli;
 
 final class SnakeBlock
 {
-    public const BLOCK = '🟩';
-
     public function __construct(public readonly int $x, public readonly int $y)
     {
     }

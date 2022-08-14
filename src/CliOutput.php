@@ -2,6 +2,8 @@
 
 namespace Thtg88\SnakeCli;
 
+use Thtg88\SnakeCli\Exceptions\TileNotValid;
+
 final class CliOutput
 {
     public function __construct(private readonly bool $debug = false)
@@ -12,7 +14,7 @@ final class CliOutput
     {
         $this->clearScreen();
 
-        echo $board->toString() . PHP_EOL;
+        echo $this->boardToString($board) . PHP_EOL;
         echo "Score: {$score->get()}" . PHP_EOL;
 
         if ($this->debug) {
@@ -25,6 +27,33 @@ final class CliOutput
     public function writeError(string $message): void
     {
         echo $message . PHP_EOL;
+    }
+
+    private function boardToString(Board $board): string
+    {
+        return implode('', array_map(
+            fn (array $row) =>  $this->rowToString($row) . PHP_EOL,
+            $board->toArray(),
+        ));
+    }
+
+    private function rowToString(array $row): string
+    {
+        return implode('', array_map(
+            fn ($tile) => $this->tileToString($tile),
+            $row
+        ));
+    }
+
+    private function tileToString(Tile $tile): string
+    {
+        return match ($tile) {
+            Tile::BRICK => '🟧',
+            Tile::EMPTY => '⬛️',
+            Tile::SNAKE => '🟩',
+            Tile::FRUIT => '🍎',
+            default => throw new TileNotValid(),
+        };
     }
 
     private function clearScreen(): void
