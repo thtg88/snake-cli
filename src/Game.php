@@ -6,6 +6,8 @@ use React\EventLoop\Loop;
 use React\EventLoop\TimerInterface;
 use Thtg88\SnakeCli\Exceptions\GameOver;
 use Thtg88\SnakeCli\Exceptions\GameQuit;
+use Thtg88\SnakeCli\Io\CliInput;
+use Thtg88\SnakeCli\Io\CliOutput;
 
 final class Game
 {

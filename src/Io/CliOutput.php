@@ -1,8 +1,11 @@
 <?php
 
-namespace Thtg88\SnakeCli;
+namespace Thtg88\SnakeCli\Io;
 
+use Thtg88\SnakeCli\Board;
 use Thtg88\SnakeCli\Exceptions\TileNotValid;
+use Thtg88\SnakeCli\Score;
+use Thtg88\SnakeCli\Tile;
 
 final class CliOutput
 {

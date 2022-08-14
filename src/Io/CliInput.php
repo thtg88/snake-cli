@@ -1,8 +1,9 @@
 <?php
 
-namespace Thtg88\SnakeCli;
+namespace Thtg88\SnakeCli\Io;
 
 use React\Stream\ReadableResourceStream;
+use Thtg88\SnakeCli\GameControls;
 
 final class CliInput
 {
