@@ -66,26 +66,22 @@ final class Snake
 
     public function moveUp(): void
     {
-        $this->direction = SnakeDirection::UP;
-        $this->move();
+        $this->move(SnakeDirection::UP);
     }
 
     public function moveRight(): void
     {
-        $this->direction = SnakeDirection::RIGHT;
-        $this->move();
+        $this->move(SnakeDirection::RIGHT);
     }
 
     public function moveDown(): void
     {
-        $this->direction = SnakeDirection::DOWN;
-        $this->move();
+        $this->move(SnakeDirection::DOWN);
     }
 
     public function moveLeft(): void
     {
-        $this->direction = SnakeDirection::LEFT;
-        $this->move();
+        $this->move(SnakeDirection::LEFT);
     }
 
     public function toString(): string
@@ -111,8 +107,9 @@ final class Snake
     /**
      * Moves the snake in the current direction.
      */
-    private function move(): void
+    private function move(SnakeDirection $direction): void
     {
+        $this->direction = $direction;
         $this->pushBlock();
         $this->shiftBlock();
     }
