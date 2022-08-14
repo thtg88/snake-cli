@@ -22,6 +22,11 @@ final class CliOutput
         }
     }
 
+    public function writeError(string $message): void
+    {
+        echo $message . PHP_EOL;
+    }
+
     private function clearScreen(): void
     {
         if ($this->debug) {
