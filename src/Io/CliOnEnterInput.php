@@ -6,7 +6,7 @@ use React\Stream\ReadableResourceStream;
 use Thtg88\SnakeCli\GameControls;
 use Thtg88\SnakeCli\SnakeDirection;
 
-final class CliInput implements InputInterface
+final class CliOnEnterInput implements InputInterface
 {
     private GameControls $game_controls;
     private ReadableResourceStream $stream;
