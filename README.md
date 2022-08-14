@@ -27,7 +27,7 @@ composer install
 From your terminal, execute:
 
 ```bash
-php src/index.php
+php index.php
 ```
 
 ### Commands
